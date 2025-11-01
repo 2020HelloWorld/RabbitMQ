@@ -3,8 +3,11 @@ logging:
     dateformat: MM-dd HH:mm:ss:SSS
 spring:
   rabbitmq:
-    host: 192.168.1.49
+    host: 10.99.34.188  #地址
     port: 5672
     username: hmall
     password: 123
-    virtual-host: /hmall
+    virtual-host: hmall  #虚拟主机名称
+    listener:
+      simple:
+        prefetch: 1  #每次只能获取一条消息，处理完成后才能获取下一条消息
