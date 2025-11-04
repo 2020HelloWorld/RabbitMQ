@@ -1,13 +1,26 @@
 logging:
   pattern:
     dateformat: MM-dd HH:mm:ss:SSS
+  level:
+    com.itheima: debug
 spring:
   rabbitmq:
-    host: 10.99.34.188  #地址
+    host: 192.168.1.69  #地址
     port: 5672
     username: hmall
     password: 123
-    virtual-host: hmall  #虚拟主机名称
+    virtual-host: /hmall  #虚拟主机名称
     listener:
       simple:
         prefetch: 1  #每次只能获取一条消息，处理完成后才能获取下一条消息
+    connection-timeout: 1s   #设置mq的超时连接时间
+    template:
+      retry:
+        enabled: true   #是否开启自动重连
+        initial-interval: 1000ms   #失败后初始等待时间
+        multiplier: 2  #失败后下次等待的时长倍数
+        max-attempts: 3   #最多尝试重连次数
+    publisher-confirm-type: correlated
+    publisher-returns: true
+
+
